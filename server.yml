@@ -1,0 +1,5 @@
+- name: Jenkins
+  hosts: jenkins
+  sudo: yes
+  roles:
+    - ansible-jenkins
