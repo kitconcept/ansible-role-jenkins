@@ -1,10 +1,11 @@
----
 language: python
 python: "2.7"
-
+services:
+  - docker
 before_install:
-  # Make sure everything's up to date.
-  - sudo apt-get update -qq
+  - docker build -t jenkinsserver .
+  - docker run -d -p 8080:8080 jenkinsserver
+  - docker ps -a
 
 install:
   # Install Ansible.
