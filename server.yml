@@ -9,6 +9,11 @@
     # Set Hostname
     - hostname: name=jenkins.mycompany.com
 
+    # Nginx
+    - name: Install Nginx
+      apt: name=nginx state=installed
+      notify: Restart nginx
+
     # Install Jenkins
     - apt_key: url=http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key state=present
     - apt_repository: repo='deb http://pkg.jenkins-ci.org/debian-stable binary/' state=present

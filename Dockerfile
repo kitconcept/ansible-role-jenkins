@@ -15,4 +15,4 @@ EXPOSE 80
 # USER jenkins
 # WORKDIR /usr/local/lib/jenkins
 
-CMD ["service nginx start"]
+CMD ["nginx", "-g", "daemon off;"]
