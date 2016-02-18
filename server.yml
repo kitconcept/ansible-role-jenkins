@@ -7,7 +7,7 @@
   tasks:
 
     # Set Hostname
-    - hostname: name=jenkins.mycompany.com
+    # - hostname: name=jenkins.mycompany.com
 
     # Nginx
     - name: Install Nginx
@@ -15,11 +15,12 @@
       notify: Restart nginx
 
     # Install Jenkins
+    - apt: name=python-pycurl state=installed
     - apt_key: url=http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key state=present
     - apt_repository: repo='deb http://pkg.jenkins-ci.org/debian-stable binary/' state=present
     - apt: update_cache=yes
     - apt: name=jenkins state=installed
-      notify: Restart jenkins
+      notify: Restart Jenkins
 
   handlers:
 
