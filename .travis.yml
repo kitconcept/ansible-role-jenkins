@@ -13,3 +13,4 @@ before_install:
 script:
   - sleep 80
   - curl http://127.0.0.1:80
+  - pybot test.robot
