@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 
 RUN useradd --system -U -u 500 jenkins
-RUN apt-get -y update && apt-get install -y curl git ansible python-apt nginx
+RUN apt-get -y update && apt-get install -y curl git ansible python-apt
 
 ADD . /ansible-jenkins
 
