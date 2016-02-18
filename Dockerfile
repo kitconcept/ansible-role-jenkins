@@ -7,3 +7,5 @@ EXPOSE 8080
 
 USER jenkins
 WORKDIR /usr/local/lib/jenkins
+
+CMD ["service start nginx]
