@@ -7,7 +7,7 @@ ADD . /ansible-jenkins
 
 WORKDIR /ansible-jenkins
 
-RUN ansible-galaxy install flyapen.jenkins -p roles
+# RUN ansible-galaxy install flyapen.jenkins -p roles
 # RUN ansible-playbook server.yml -i hosts
 
 EXPOSE 80
@@ -15,4 +15,4 @@ EXPOSE 80
 # USER jenkins
 # WORKDIR /usr/local/lib/jenkins
 
-CMD ["service start nginx"]
+CMD ["service nginx start"]

@@ -1,5 +1,28 @@
 - name: Jenkins
   hosts: 127.0.0.1
   sudo: yes
-  roles:
-    - flyapen.jenkins
+#  roles:
+#    - flyapen.jenkins
+
+  tasks:
+
+    # Set Hostname
+    - hostname: name=jenkins.mycompany.com
+
+    # Install Jenkins
+    - apt_key: url=http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key state=present
+    - apt_repository: repo='deb http://pkg.jenkins-ci.org/debian-stable binary/' state=present
+    - apt: update_cache=yes
+    - apt: name=jenkins state=installed
+      notify: Restart jenkins
+
+  handlers:
+
+    - name: Restart ssh
+      action: service name=ssh state=restarted
+
+    - name: Restart nginx
+      action: service name=nginx state=reloaded
+
+    - name: Restart Jenkins
+      action: service name=jenkins state=restarted
