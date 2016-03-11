@@ -5,23 +5,26 @@ Ansible role to set up a Jenkins server for Plone development.
 
 Create Docker image for jenkins-master::
 
-  $ docker build -t ansiblejenkins .
+  $ docker build -t jenkinsmaster .
 
-  $ docker build .
+Start Docker image::
 
-  $ eval "$(docker-machine env default)"
+  $ docker run -d -p 8080:8080 jenkinsmaster
 
+Open Jenkins in the browser::
 
-  $ virtualenv .env
-  $ source .env/bin/activate
-  $ pip install ansible
-  $ ansible-galaxy install flyapen.jenkins -p roles/flyapen.jenkins/
+  $ open "http://$(docker-machine ip jenkinsmaster):8080/"
 
-  $ ansible-playbook server.yml -i hosts
+Run Tests::
 
-Create Docker image::
+  $ pybot test.robot
 
-  $ docker-machine create --driver virtualbox jenkins
+Misc
+----
+
+Check if Docker image is running::
+
+  $ docker ps -a
 
 List local Docker images::
 
@@ -34,4 +37,12 @@ Start Docker image::
 Delete Docker image::
 
   $ docker-machine rm jenkins
+
+SSH into Docker image::
+
+  $ docker exec -it <IMAGE_ID> bash
+
+Start Service::
+
+  $ docker exec <IMAGE_ID> /etc/init.d/jenkins start
 
