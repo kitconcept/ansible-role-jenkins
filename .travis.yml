@@ -15,5 +15,5 @@ before_install:
   - docker ps -a
 
 script:
-  - sleep 10
+  - sleep 60
   - pybot test.robot
