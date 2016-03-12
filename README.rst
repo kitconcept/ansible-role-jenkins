@@ -46,3 +46,7 @@ Start Service::
 
   $ docker exec <IMAGE_ID> /etc/init.d/jenkins start
 
+Remove all containers::
+
+  $ docker rm $(docker ps -aq)
+
