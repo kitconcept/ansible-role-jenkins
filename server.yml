@@ -1,8 +1,8 @@
 - name: Jenkins
   hosts: 127.0.0.1
   sudo: yes
-#  roles:
-#    - flyapen.jenkins
+  roles:
+    - flyapen.jenkins
 
   tasks:
 
@@ -24,14 +24,6 @@
     - name: jenkins nginx sites-enabled
       file: path=/etc/nginx/sites-enabled/jenkins state=link src=/etc/nginx/sites-available/jenkins
       notify: Restart nginx
-
-    # Install Jenkins
-    - apt: name=python-pycurl state=installed
-    - apt_key: url=http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key state=present
-    - apt_repository: repo='deb http://pkg.jenkins-ci.org/debian-stable binary/' state=present
-    - apt: update_cache=yes
-    - apt: name=jenkins state=installed
-      notify: Restart Jenkins
 
   handlers:
 
