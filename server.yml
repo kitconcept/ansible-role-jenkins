@@ -14,6 +14,18 @@
       apt: name=nginx state=installed
       notify: Restart nginx
 
+    # Nginx default
+    - name: remove nginx default configuration
+      file: path=/etc/nginx/sites-enabled/default state=absent
+      notify: Restart nginx
+
+    # Nginx jenkins.kitconcept.com
+    - name: jenkins.kitconcept.com nginx sites-available
+      template: src=etc/nginx.txt dest=/etc/nginx/sites-available/jenkins.kitconcept.com owner=root group=root mode=0755
+    - name: jenkins.kitconcept.com nginx sites-enabled
+      file: path=/etc/nginx/sites-enabled/jenkins.kitconcept.com state=link src=/etc/nginx/sites-available/jenkins.kitconcept.com
+      notify: Restart nginx
+
     # Install Jenkins
     - apt: name=python-pycurl state=installed
     - apt_key: url=http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key state=present
