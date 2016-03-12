@@ -15,11 +15,11 @@ Create Docker image for jenkinsmaster::
 
 Start Docker image::
 
-  $ docker run -d -p 8080:8080 jenkinsmaster
+  $ docker run -d -p 80:80 jenkinsmaster
 
 Open Jenkins in the browser::
 
-  $ open "http://$(docker-machine ip jenkinsmaster):8080/"
+  $ open "http://$(docker-machine ip jenkinsmaster):80/"
 
 Run Tests::
 

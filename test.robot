@@ -8,7 +8,7 @@ ${BROWSER}              firefox
 
 *** Settings ***
 
-Documentation   Django Robot Tests
+Documentation   Ansible Role Jenkins Plone Test
 Library         Selenium2Library  timeout=10  implicit_wait=0
 Suite Setup     Open Browser  ${SERVER}  ${BROWSER}
 Suite Teardown  Close Browser
@@ -21,5 +21,5 @@ Suite Teardown  Close Browser
 
 Webserver Setup
   Go To  ${SERVER}
-  Wait until page contains  Welcome to nginx!
-  Page Should Contain  Welcome to nginx!
+  Wait until page contains  Jenkins
+  Page Should Contain  Jenkins
