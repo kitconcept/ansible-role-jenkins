@@ -3,7 +3,13 @@ Ansible Role Jenkins Plone
 
 Ansible role to set up a Jenkins server for Plone development.
 
-Create Docker image for jenkins-master::
+Create Docker container for jenkinsmaster::
+
+  $ docker-machine create --driver virtualbox jenkinsmaster
+  $ docker-machine env jenkinsmaster
+  $ eval $(docker-machine env jenkinsmaster)
+
+Create Docker image for jenkinsmaster::
 
   $ docker build -t jenkinsmaster .
 
