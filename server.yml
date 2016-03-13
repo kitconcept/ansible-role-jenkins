@@ -1,26 +1,16 @@
 - name: Jenkins
   hosts: 127.0.0.1
   sudo: yes
+  vars:
+    jenkins_hostname: jenkins.kitconcept.com
+    jenkins_http_port: 8080
+    jenkins_plugins:
+    - greenballs
+    - simple-theme-plugin
+    - robot
+    - xvfb
   roles:
-   - {
-    role: flyapen.jenkins,
-    plugins: [
-      'greenballs',
-      'simple-theme-plugin',
-      'robot',
-      'xvfb',
-      'workflow-aggregator', # workflow
-      'workflow-api', # workflow dep
-      'workflow-basic-steps', # workflow dep
-      'workflow-cps', # workflow dep
-      'workflow-cps-global-lib', # workflow dep
-      'workflow-durable-task-step', # workflow dep
-      'workflow-job', # workflow dep
-      'workflow-scm-step', # workflow dep
-      'workflow-step-api', # workflow dep
-      'workflow-support', # workflow dep
-    ],
-  }
+    - geerlingguy.jenkins
 
   tasks:
 
