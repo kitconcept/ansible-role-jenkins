@@ -2,7 +2,25 @@
   hosts: 127.0.0.1
   sudo: yes
   roles:
-    - flyapen.jenkins
+   - {
+    role: flyapen.jenkins,
+    plugins: [
+      'greenballs',
+      'simple-theme-plugin',
+      'robot',
+      'xvfb',
+      'workflow-aggregator', # workflow
+      'workflow-api', # workflow dep
+      'workflow-basic-steps', # workflow dep
+      'workflow-cps', # workflow dep
+      'workflow-cps-global-lib', # workflow dep
+      'workflow-durable-task-step', # workflow dep
+      'workflow-job', # workflow dep
+      'workflow-scm-step', # workflow dep
+      'workflow-step-api', # workflow dep
+      'workflow-support', # workflow dep
+    ],
+  }
 
   tasks:
 
