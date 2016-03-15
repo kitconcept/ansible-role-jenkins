@@ -1,8 +1,26 @@
 - name: Jenkins
   hosts: 127.0.0.1
   sudo: yes
-#  roles:
-#    - flyapen.jenkins
+  vars:
+    jenkins_hostname: localhost
+    jenkins_http_port: 8080
+    jenkins_jar_location: /opt/jenkins-cli.jar
+    jenkins_plugins:
+      - greenballs
+      - git
+      - robot
+      - simple-theme-plugin
+      - workflow-aggregator
+      - workflow-api
+      - workflow-basic-steps
+      - workflow-cps
+      - workflow-cps-global-lib
+      - workflow-durable-task-step
+      - workflow-job
+      - workflow-scm-step
+      - workflow-step-api
+      - workflow-support
+    jenkins_url_prefix: ""
 
   tasks:
 
@@ -14,13 +32,106 @@
       apt: name=nginx state=installed
       notify: Restart nginx
 
+    - name: remove nginx default configuration
+      file: path=/etc/nginx/sites-enabled/default state=absent
+      notify: Restart nginx
+
+    - name: jenkins nginx sites-available
+      template: src=etc/nginx.txt dest=/etc/nginx/sites-available/jenkins owner=root group=root mode=0755
+
+    - name: jenkins nginx sites-enabled
+      file: path=/etc/nginx/sites-enabled/jenkins state=link src=/etc/nginx/sites-available/jenkins
+      notify: Restart nginx
+
     # Install Jenkins
-    - apt: name=python-pycurl state=installed
-    - apt_key: url=http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key state=present
-    - apt_repository: repo='deb http://pkg.jenkins-ci.org/debian-stable binary/' state=present
-    - apt: update_cache=yes
-    - apt: name=jenkins state=installed
-      notify: Restart Jenkins
+    - name: Ensure dependencies are installed.
+      apt: pkg=python-pycurl state=installed
+    - name: Add Jenkins apt repository key.
+      apt_key:
+        url=http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key
+        state=present
+    - name: Add Jenkins apt repository.
+      apt_repository:
+        repo='deb http://pkg.jenkins-ci.org/debian-stable binary/'
+        state=present
+        update_cache=yes
+    - name: Ensure Jenkins is installed.
+      apt: pkg=jenkins state=installed
+    - name: Configure home directory for jenkins user
+      user: name=jenkins home=/var/lib/jenkins
+
+    # Make sure Jenkins starts, then configure Jenkins.
+    - name: Ensure Jenkins is started and runs on startup.
+      service: name=jenkins state=started enabled=yes
+
+    - name: Wait for Jenkins to start up before proceeding.
+      shell: "curl -D - --silent http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}/cli/"
+      register: result
+      until: (result.stdout.find("403 Forbidden") != -1) or (result.stdout.find("200 OK") != -1) and (result.stdout.find("Please wait while") == -1)
+      retries: 5
+      delay: 60
+      changed_when: false
+
+#    - name: Configure jenkins
+#      sudo: yes
+#      template:
+#        src=etc/jenkins_config.xml.j2
+#        dest=/var/lib/jenkins/config.xml
+#      notify:
+#        - 'Restart Jenkins'
+
+#    - name: Configure jenkins location
+#      sudo: yes
+#      template:
+#        src=etc/jenkins_location.xml.j2
+#        dest=/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml
+#      notify:
+#        - 'Restart Jenkins'
+
+#    - name: Configure jenkins theme
+#      sudo: yes
+#      template:
+#        src=jenkins_simple_theme.xml.j2
+#        dest=/var/lib/jenkins/org.codefirst.SimpleThemeDecorator.xml
+#      notify:
+#        - 'Restart Jenkins'
+
+    - name: Get the jenkins-cli jarfile from the Jenkins server.
+      get_url:
+        url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}/jnlpJars/jenkins-cli.jar"
+        dest: "{{ jenkins_jar_location }}"
+      register: jarfile_get
+      until: "'OK' in jarfile_get.msg or 'file already exists' in jarfile_get.msg"
+      retries: 5
+      delay: 10
+
+    # Jenkins Plugins
+    - name: Create Jenkins updates folder.
+      file:
+        path: /var/lib/jenkins/updates
+        owner: jenkins
+        group: jenkins
+        mode: 0755
+        state: directory
+
+    - name: Update Jenkins plugin data.
+      shell: >
+        curl -L https://updates.jenkins-ci.org/update-center.json | sed '1d;$d' > /var/lib/jenkins/updates/default.json
+        creates=/var/lib/jenkins/updates/default.json
+    - name: Permissions for default.json updates info.
+      file:
+        path: /var/lib/jenkins/updates/default.json
+        owner: jenkins
+        group: jenkins
+        mode: 0755
+
+    - name: Install Jenkins plugins.
+      command: >
+        java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix | default('') }}/ install-plugin {{ item }}
+        creates=/var/lib/jenkins/plugins/{{ item }}.jpi
+      with_items: jenkins_plugins
+      notify: restart jenkins
+
 
   handlers:
 
@@ -30,5 +141,5 @@
     - name: Restart nginx
       action: service name=nginx state=reloaded
 
-    - name: Restart Jenkins
+    - name: restart jenkins
       action: service name=jenkins state=restarted

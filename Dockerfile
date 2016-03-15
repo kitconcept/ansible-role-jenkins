@@ -7,7 +7,6 @@ ADD . /ansible-jenkins
 
 WORKDIR /ansible-jenkins
 
-RUN ansible-galaxy install flyapen.jenkins -p roles --force
 RUN ansible-playbook server.yml -i hosts
 
 EXPOSE 80
