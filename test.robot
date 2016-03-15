@@ -8,7 +8,7 @@ ${BROWSER}              firefox
 
 *** Settings ***
 
-Documentation   Django Robot Tests
+Documentation   Ansible Role Jenkins Plone Tests
 Library         Selenium2Library  timeout=10  implicit_wait=0
 Suite Setup     Open Browser  ${SERVER}  ${BROWSER}
 Suite Teardown  Close Browser
