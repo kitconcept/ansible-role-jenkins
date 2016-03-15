@@ -1,0 +1,16 @@
+
+- project:
+    name: workflow
+    jobs:
+        - 'workflow-plone-5.0'
+
+- job:
+    name: 'workflow-plone-5.0'
+    project-type: workflow
+    definitions:
+        - script:
+            filename: 'flow.groovy'
+        - scm:
+            url: https://github.com/plone/jenkins.plone.org.git
+            branches:
+                - '*/master'
