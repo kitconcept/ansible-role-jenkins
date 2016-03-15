@@ -4,6 +4,11 @@ CURRENT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 all: clean build
 
+setup_osx:
+	docker-machine create --driver virtualbox jenkinsmaster
+	docker-machine env jenkinsmaster
+	eval $(docker-machine env jenkinsmaster)
+
 build:
 	@echo "Build"
 	docker build -t jenkinsmaster .
