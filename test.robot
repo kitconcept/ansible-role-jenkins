@@ -21,5 +21,5 @@ Suite Teardown  Close Browser
 
 Webserver Setup
   Go To  ${SERVER}
-  Wait until page contains  Welcome to nginx!
-  Page Should Contain  Welcome to nginx!
+  Wait until page contains  Jenkins
+  Page Should Contain  Jenkins
