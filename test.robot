@@ -49,7 +49,7 @@ Test Jenkins Mail Setup
 #  Page should contain element  xpath=//input[@name='_.smtpServer' and @value='kitconcept.com']
 #  Page should contain element  xpath=//input[@name='_.defaultSuffix' and @value='@kitconcept.com']
 
-Test Jenkins Number of executors to zero
+Test Jenkins Number of executors to 1
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.numExecutors']
-#  Page should contain element  xpath=//input[@name='_.numExecutors' and @value='1']
+  Page should contain element  xpath=//input[@name='_.numExecutors' and @value='1']

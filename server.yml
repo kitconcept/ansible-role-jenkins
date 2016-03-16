@@ -25,6 +25,7 @@
     jenkins_admin_email_address: info@kitconcept.com
     jenkins_url: jenkins.kitconcept.com
     jenkins_user: jenkins
+    jenkins_number_of_executors: 1
 
   roles:
     - cmprescott.xml
@@ -109,25 +110,18 @@
         xpath: /jenkins.model.JenkinsLocationConfiguration/jenkinsUrl
         value: "{{jenkins_url}}"
 
+    - name: Create Jenkins config.xml
+      template:
+        src=etc/config.xml
+        dest=/var/lib/jenkins/.jenkins/config.xml
+        owner={{jenkins_user}}
+        group={{jenkins_user}}
 
-#    - name: Configure Mail settings
-#      xml: file=/var/lib/jenkins/.jenkins/config.xml xpath=/business/rating value=11
-
-#    - name: Configure jenkins
-#      sudo: yes
-#      template:
-#        src=etc/jenkins_config.xml.j2
-#        dest=/var/lib/jenkins/config.xml
-#      notify:
-#        - 'Restart Jenkins'
-
-#    - name: Configure jenkins location
-#      sudo: yes
-#      template:
-#        src=etc/jenkins_location.xml.j2
-#        dest=/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml
-#      notify:
-#        - 'Restart Jenkins'
+    - name: Configure number of executors
+      xml:
+        file: /var/lib/jenkins/.jenkins/config.xml
+        xpath: /hudson/numExecutors
+        value: "{{ jenkins_number_of_executors }}"
 
 #    - name: Configure jenkins theme
 #      sudo: yes
