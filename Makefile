@@ -26,5 +26,9 @@ ssh:
 
 test:
 	@echo "Run Tests"
+	pybot test.robot
+
+test_osx:
+	@echo "Run Tests"
 	pybot --variable HOSTNAME:$$(docker-machine ip jenkinsmaster) test.robot
 

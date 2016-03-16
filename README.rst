@@ -28,6 +28,10 @@ Run tests against running docker container::
 
   $ make test
 
+SSH into the docker container for inspection::
+
+  $ make ssh
+
 Destroy docker container::
 
   $ make clean
