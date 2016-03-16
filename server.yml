@@ -4,7 +4,7 @@
   vars:
     jenkins_hostname: localhost
     jenkins_http_port: 8080
-    jenkins_jar_location: /opt/jenkins-cli.jar
+    jenkins_jar_location: /var/lib/jenkins/jenkins-cli.jar
     jenkins_plugins:
       - greenballs
       - git
@@ -173,9 +173,6 @@
         creates=/var/lib/jenkins/plugins/{{ item }}.jpi
       with_items: jenkins_plugins
       notify: restart jenkins
-
-    - name: start jenkins
-      shell: /etc/init.d/jenkins restart
 
     # Jenkins Jobs
     - name: Install PIP
