@@ -17,6 +17,22 @@ OS X::
   $ eval $(docker-machine env jenkinsmaster)
 
 
+Usage
+-----
+
+Build and start docker container::
+
+  $ make build
+
+Run tests against running docker container::
+
+  $ make test
+
+Destroy docker container::
+
+  $ make clean
+
+
 Build
 -----
 
