@@ -26,7 +26,7 @@ Create Docker image for jenkinsmaster::
 
 Start Docker image::
 
-  $ JOB=$(docker run -d -p 80:80 jenkinsmaster)
+  $ docker run -d -p 80:80 jenkinsmaster
 
 Open Jenkins in the browser::
 
