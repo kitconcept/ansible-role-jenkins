@@ -25,10 +25,31 @@ Jenkins Setup
   Wait until page contains  Jenkins
   Page Should Contain  Jenkins
 
-Jenkins Mail Settings
-  Go To  ${SERVER}/configure
-  Debug
-  Wait until page contains element  xpath=//input[@name='_.smtpServer']
-  Page should contain element  xpath=//input[@name='_.smtpServer' and @value='kitconcept.com']
-  Page should contain element  xpath=//input[@name='_.defaultSuffix' and @value='@kitconcept.com']
+Jenkins Plugins installed
+  Go to  ${SERVER}/pluginManager/installed
+  Wait until page contains  Installed
+#  Page should contain  Green Balls
+#  Page should contain  Robot Framework plugin
+#  Page should contain  Workflow Plugin
+#  Page should contain  Simple Theme Plugin
 
+Test Jenkins URL
+  Go To  ${SERVER}/configure
+  Wait until page contains element  xpath=//input[@name='_.url']
+  Page should contain element  xpath=//input[@name='_.url' and @value='jenkins.kitconcept.com']
+
+Test Jenkins Admin E-mail Address
+  Go To  ${SERVER}/configure
+  Wait until page contains element  xpath=//input[@name='_.adminAddress']
+  Page should contain element  xpath=//input[@name='_.adminAddress' and @value='info@kitconcept.com']
+
+Test Jenkins Mail Setup
+  Go To  ${SERVER}/configure
+  Wait until page contains element  xpath=//input[@name='_.smtpServer']
+#  Page should contain element  xpath=//input[@name='_.smtpServer' and @value='kitconcept.com']
+#  Page should contain element  xpath=//input[@name='_.defaultSuffix' and @value='@kitconcept.com']
+
+Test Jenkins Number of executors to zero
+  Go To  ${SERVER}/configure
+  Wait until page contains element  xpath=//input[@name='_.numExecutors']
+#  Page should contain element  xpath=//input[@name='_.numExecutors' and @value='1']
