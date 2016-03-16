@@ -26,7 +26,8 @@
     jenkins_url: jenkins.kitconcept.com
     jenkins_user: jenkins
     jenkins_number_of_executors: 1
-
+    jenkins_username: jenkins
+    jenkins_password: jenkins
   roles:
     - cmprescott.xml
 
@@ -167,6 +168,16 @@
         creates=/var/lib/jenkins/plugins/{{ item }}.jpi
       with_items: jenkins_plugins
       notify: restart jenkins
+
+    - name: Configure security
+      xml:
+        file: /var/lib/jenkins/.jenkins/config.xml
+        xpath: /hudson/securityRealm
+        attribute: class
+        value: "hudson.security.HudsonPrivateSecurityRealm"
+
+    - name: Create Jenkins admin user
+      shell: echo 'jenkins.model.Jenkins.instance.securityRealm.createAccount({{ jenkins_username }}, {{ jenkins_password }})' | java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix | default('') }}/ groovy =
 
     # Jenkins Jobs
     - name: Install PIP
