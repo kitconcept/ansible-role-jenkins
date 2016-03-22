@@ -9,7 +9,7 @@ ${FF_PROFILE_DIR}       ${CURDIR}/etc/ff_profile_dir
 
 *** Settings ***
 
-Documentation   Ansible Role Jenkins Plone Tests
+Documentation   Ansible Role Jenkins Plone
 Library         Selenium2Library  timeout=10  implicit_wait=0
 Library         DebugLibrary
 Suite Setup     Open Browser  ${SERVER}  ${BROWSER}
