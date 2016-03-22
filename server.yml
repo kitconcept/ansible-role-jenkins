@@ -176,7 +176,7 @@
     #  notify: restart jenkins
 
     - name: Download Green Balls Plugin
-      get_url: url=http://mirrors.jenkins-ci.org/plugins/greenballs/latest/greenballs.hpi dest=/var/lib/jenkins/plugins/greenballs.jpi
+      get_url: url=http://mirrors.jenkins-ci.org/plugins/greenballs/latest/greenballs.hpi dest=/var/lib/jenkins/plugins/greenballs.hpi
       notify: restart jenkins
 
 #    - name: Configure security
