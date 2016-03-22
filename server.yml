@@ -171,8 +171,12 @@
     #     - 'restart jenkins'
 
     # manual approach
-    - name: Install Green Balls Plugin
-      shell: java -jar /var/lib/jenkins/jenkins-cli.jar -s http://localhost:8080/ install-plugin greenballs
+    # - name: Install Green Balls Plugin
+    #   shell: java -jar /var/lib/jenkins/jenkins-cli.jar -s http://localhost:8080/ install-plugin greenballs
+    #  notify: restart jenkins
+
+    - name: Download Green Balls Plugin
+      get_url: url=http://mirrors.jenkins-ci.org/plugins/greenballs/latest/greenballs.hpi dest=/var/lib/jenkins/plugins/greenballs.jpi
       notify: restart jenkins
 
 #    - name: Configure security
