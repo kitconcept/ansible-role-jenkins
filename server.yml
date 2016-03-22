@@ -134,13 +134,13 @@
       delay: 10
 
     # Jenkins Plugins
-    - name: Create Jenkins updates folder.
-      file:
-        path: /var/lib/jenkins/updates
-        owner: jenkins
-        group: jenkins
-        mode: 0755
-        state: directory
+    # - name: Create Jenkins updates folder.
+    #   file:
+    #     path: /var/lib/jenkins/updates
+    #     owner: jenkins
+    #     group: jenkins
+    #     mode: 0755
+    #     state: directory
 
 #    - name: Update Jenkins plugin data.
 #      shell: >
