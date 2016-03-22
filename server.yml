@@ -7,19 +7,19 @@
     jenkins_jar_location: /var/lib/jenkins/jenkins-cli.jar
     jenkins_plugins:
       - greenballs
-      - git
-      - robot
-      - simple-theme-plugin
-      - workflow-aggregator
-      - workflow-api
-      - workflow-basic-steps
-      - workflow-cps
-      - workflow-cps-global-lib
-      - workflow-durable-task-step
-      - workflow-job
-      - workflow-scm-step
-      - workflow-step-api
-      - workflow-support
+#      - git
+#      - robot
+#      - simple-theme-plugin
+#      - workflow-aggregator
+#      - workflow-api
+#      - workflow-basic-steps
+#      - workflow-cps
+#      - workflow-cps-global-lib
+#      - workflow-durable-task-step
+#      - workflow-job
+#      - workflow-scm-step
+#      - workflow-step-api
+#      - workflow-support
     jenkins_url_prefix: ""
 
     jenkins_admin_email_address: info@kitconcept.com
@@ -85,12 +85,14 @@
         file: /var/lib/jenkins/.jenkins/jenkins.model.JenkinsLocationConfiguration.xml
         xpath: /jenkins.model.JenkinsLocationConfiguration/adminAddress
         value: "{{jenkins_admin_email_address}}"
+      notify: restart jenkins
 
     - name: Configure Jenkins URL
       xml:
         file: /var/lib/jenkins/.jenkins/jenkins.model.JenkinsLocationConfiguration.xml
         xpath: /jenkins.model.JenkinsLocationConfiguration/jenkinsUrl
         value: "{{jenkins_url}}"
+      notify: restart jenkins
 
     - name: Create Jenkins config.xml
       template:
@@ -104,6 +106,7 @@
         file: /var/lib/jenkins/.jenkins/config.xml
         xpath: /hudson/numExecutors
         value: "{{ jenkins_number_of_executors }}"
+      notify: restart jenkins
 
 #    - name: Configure jenkins theme
 #      sudo: yes
