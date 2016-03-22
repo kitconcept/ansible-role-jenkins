@@ -167,7 +167,7 @@
       with_items: jenkins_plugins
       ignore_errors: yes
       notify:
-        - 'Restart Jenkins'
+        - 'restart jenkins'
 
     - name: Configure security
       xml:
