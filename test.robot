@@ -4,6 +4,7 @@ ${HOSTNAME}             127.0.0.1
 ${PORT}                 8080
 ${SERVER}               http://${HOSTNAME}:${PORT}
 ${BROWSER}              firefox
+${FF_PROFILE_DIR}       ${CURDIR}/etc/ff_profile_dir
 
 
 *** Settings ***
@@ -20,30 +21,30 @@ Suite Teardown  Close Browser
 
 *** Test Cases ***
 
-Jenkins Setup
+Test Jenkins Is Up and Running
   Go To  ${SERVER}
   Wait until page contains  Jenkins
   Page Should Contain  Jenkins
 
-Test Jenkins Home Set
+Test Jenkins Home Setting
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.url']
   Page should contain  /var/lib/jenkins/.jenkins
 
-Jenkins Plugins installed
+Test Jenkins Plugins are installed
   Go to  ${SERVER}/pluginManager/installed
   Wait until page contains  Installed
-#  Page should contain  Green Balls
+  Page should contain  Green Balls
 #  Page should contain  Robot Framework plugin
 #  Page should contain  Workflow Plugin
 #  Page should contain  Simple Theme Plugin
 
-Test Jenkins URL
+Test Jenkins URL Setting
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.url']
   Textfield value should be  xpath=//input[@name='_.url']  jenkins.kitconcept.com
 
-Test Jenkins Admin E-mail Address
+Test Jenkins Admin E-mail Address Setting
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.adminAddress']
   Textfield value should be  xpath=//input[@name='_.adminAddress']  info@kitconcept.com
@@ -57,4 +58,4 @@ Test Jenkins Mail Setup
 Test Jenkins Number of executors to 1
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.numExecutors']
-  Textfield value should be  xpath=//input[@name='_.numExecutors']  1
+  Page should contain element xpath=//input[@name='_.numExecutors' and @value='1']

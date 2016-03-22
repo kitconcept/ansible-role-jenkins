@@ -108,6 +108,13 @@
         value: "{{ jenkins_number_of_executors }}"
       notify: restart jenkins
 
+    - name: Create Mailer Configuration File
+      template:
+        src=etc/hudson.tasks.Mailer.xml
+        dest=/var/lib/jenkins/.jenkins/hudson.tasks.Mailer.xml
+        owner={{jenkins_user}}
+        group={{jenkins_user}}
+
 #    - name: Configure jenkins theme
 #      sudo: yes
 #      template:
