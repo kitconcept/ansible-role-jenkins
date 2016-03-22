@@ -49,11 +49,16 @@ Test Jenkins Admin E-mail Address Setting
   Wait until page contains element  xpath=//input[@name='_.adminAddress']
   Textfield value should be  xpath=//input[@name='_.adminAddress']  info@kitconcept.com
 
-Test Jenkins Mail Setup
+Test Jenkins Mail SMTP Server Settings
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.smtpServer']
-#  Textfield value should be  xpath=//input[@name='_.smtpServer']  smtp.kitconcept.com
+  Textfield value should be  xpath=//input[@name='_.smtpServer']  smtp.kitconcept.com
+
+Test Jenkins Mail Default Suffix Settings
+  Go To  ${SERVER}/configure
+  Wait until page contains element  xpath=//input[@name='_.smtpServer']
   Textfield value should be  xpath=//input[@name='_.defaultSuffix']  @kitconcept.com
+
 #  Checkbox Should Be Selected  xpath=//input[@name='_.useSMTPAuth']
 #  Textfield value should be  xpath=//input[@name='_.smtpAuthUserName']  stollenwerk@kitconcept.com
 #  Textfield value should be  xpath=//input[@name='_.smtpPort']  555
