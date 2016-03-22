@@ -53,7 +53,7 @@ Test Jenkins Mail Setup
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.smtpServer']
 #  Textfield value should be  xpath=//input[@name='_.smtpServer']  smtp.kitconcept.com
-#  Textfield value should be  xpath=//input[@name='_.defaultSuffix']  @kitconcept.com
+  Textfield value should be  xpath=//input[@name='_.defaultSuffix']  @kitconcept.com
 #  Checkbox Should Be Selected  xpath=//input[@name='_.useSMTPAuth']
 #  Textfield value should be  xpath=//input[@name='_.smtpAuthUserName']  stollenwerk@kitconcept.com
 #  Textfield value should be  xpath=//input[@name='_.smtpPort']  555
