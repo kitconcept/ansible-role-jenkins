@@ -14,6 +14,8 @@ RUN ansible-playbook server.yml -i hosts
 
 ENV JENKINS_HOME /var/lib/jenkins/.jenkins
 
-ENTRYPOINT ["java", "-jar", "/usr/share/jenkins/jenkins.war", "--httpPort=8080", "-DJENKINS_HOME=/var/lib/jenkins/.jenkins"]
+ENTRYPOINT ["java", "-jar", "/usr/share/jenkins/jenkins.war", "--httpPort=8080"]
+
 EXPOSE 8080
+
 CMD [""]
