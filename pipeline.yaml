@@ -2,15 +2,15 @@
 - project:
     name: workflow
     jobs:
-        - 'workflow-plone-5.0'
+        - 'plone.rest'
 
 - job:
-    name: 'workflow-plone-5.0'
+    name: 'plone.rest'
     project-type: workflow
     definitions:
         - script:
-            filename: 'flow.groovy'
+            filename: 'plone.rest.pipeline.groovy'
         - scm:
-            url: https://github.com/plone/jenkins.plone.org.git
+            url: https://github.com/kitconcept/ansible-role-jenkins-plone.git
             branches:
                 - '*/master'
