@@ -34,7 +34,8 @@ Test Jenkins Home Setting
 Test Jenkins Plugins are installed
   Go to  ${SERVER}/pluginManager/installed
   Wait until page contains  Installed
-#  Page should contain  Green Balls
+  Page should contain  Green Balls
+  Page should contain element  xpath=//a[@href='http://wiki.jenkins-ci.org/display/JENKINS/Green+Balls']
 #  Page should contain  Robot Framework plugin
 #  Page should contain  Workflow Plugin
 #  Page should contain  Simple Theme Plugin
