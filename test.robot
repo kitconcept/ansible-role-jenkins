@@ -25,6 +25,11 @@ Jenkins Setup
   Wait until page contains  Jenkins
   Page Should Contain  Jenkins
 
+Test Jenkins Home Set
+  Go To  ${SERVER}/configure
+  Wait until page contains element  xpath=//input[@name='_.url']
+  Page should contain  /var/lib/jenkins/.jenkins
+
 Jenkins Plugins installed
   Go to  ${SERVER}/pluginManager/installed
   Wait until page contains  Installed
@@ -36,7 +41,6 @@ Jenkins Plugins installed
 Test Jenkins URL
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.url']
-  Page should contain element  xpath=//input[@name='_.url']
   Textfield value should be  xpath=//input[@name='_.url']  jenkins.kitconcept.com
 
 Test Jenkins Admin E-mail Address
