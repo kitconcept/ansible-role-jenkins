@@ -54,16 +54,35 @@ Test Jenkins Mail SMTP Server Settings
   Wait until page contains element  xpath=//input[@name='_.smtpServer']
   Textfield value should be  xpath=//input[@name='_.smtpServer']  smtp.kitconcept.com
 
-Test Jenkins Mail Default Suffix Settings
+Test Jenkins Mail Default Suffix Setting
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.smtpServer']
   Textfield value should be  xpath=//input[@name='_.defaultSuffix']  @kitconcept.com
 
-#  Checkbox Should Be Selected  xpath=//input[@name='_.useSMTPAuth']
-#  Textfield value should be  xpath=//input[@name='_.smtpAuthUserName']  stollenwerk@kitconcept.com
-#  Textfield value should be  xpath=//input[@name='_.smtpPort']  555
-#  Textfield value should be  xpath=//input[@name='_.replyToAddress']  no-reply@kitconcept.com
-#  Checkbox Should Be Selected  xpath=//input[@name='_.useSsl']
+Test Jenkins SMTP Auth Setting
+  Go To  ${SERVER}/configure
+  Wait until page contains element  xpath=//input[@name='_.smtpServer']
+  Checkbox Should Be Selected  xpath=//input[@name='_.useSMTPAuth']
+
+Test Jenkins SMTP Auth Username Setting
+  Go To  ${SERVER}/configure
+  Wait until page contains element  xpath=//input[@name='_.smtpServer']
+  Textfield value should be  xpath=//input[@name='_.smtpAuthUserName']  stollenwerk@kitconcept.com
+
+Test Jenkins SMTP Port Setting
+  Go To  ${SERVER}/configure
+  Wait until page contains element  xpath=//input[@name='_.smtpServer']
+  Textfield value should be  xpath=//input[@name='_.smtpPort']  555
+
+Test Jenkins SMTP Reply-To Setting
+  Go To  ${SERVER}/configure
+  Wait until page contains element  xpath=//input[@name='_.smtpServer']
+  Textfield value should be  xpath=//input[@name='_.replyToAddress']  no-reply@kitconcept.com
+
+Test Jenkins SMTP SSL Enabled Setting
+  Go To  ${SERVER}/configure
+  Wait until page contains element  xpath=//input[@name='_.smtpServer']
+  Checkbox Should Be Selected  xpath=//input[@name='_.useSsl']
 
 Test Jenkins Number of executors to 1
   Go To  ${SERVER}/configure
