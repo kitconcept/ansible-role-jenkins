@@ -142,16 +142,17 @@
         mode: 0755
         state: directory
 
-    - name: Update Jenkins plugin data.
-      shell: >
-        curl -L https://updates.jenkins-ci.org/update-center.json | sed '1d;$d' > /var/lib/jenkins/updates/default.json
-        creates=/var/lib/jenkins/updates/default.json
-    - name: Permissions for default.json updates info.
-      file:
-        path: /var/lib/jenkins/updates/default.json
-        owner: jenkins
-        group: jenkins
-        mode: 0755
+#    - name: Update Jenkins plugin data.
+#      shell: >
+#        curl -L https://updates.jenkins-ci.org/update-center.json | sed '1d;$d' > /var/lib/jenkins/updates/default.json
+#        creates=/var/lib/jenkins/updates/default.json
+
+#    - name: Permissions for default.json updates info.
+#      file:
+#        path: /var/lib/jenkins/updates/default.json
+#        owner: jenkins
+#        group: jenkins
+#        mode: 0755
 
     # geerlingguy approach
     #- name: Install Jenkins plugins.
@@ -162,32 +163,33 @@
     #  notify: restart jenkins
 
     # icto approach
-    - name: Install/update plugins
-      shell: java -jar {{ jenkins_jar_location }} -s http://localhost:{{ jenkins_http_port }}{{ jenkins_url_prefix }} install-plugin {{ item }}
-      with_items: jenkins_plugins
-      ignore_errors: yes
-      notify:
-        - 'restart jenkins'
+    # - name: Install/update plugins
+    #   shell: java -jar {{ jenkins_jar_location }} -s http://localhost:{{ jenkins_http_port }}{{ jenkins_url_prefix }} install-plugin {{ item }}
+    #   with_items: jenkins_plugins
+    #   ignore_errors: yes
+    #   notify:
+    #     - 'restart jenkins'
 
     # manual approach
     - name: Install Green Balls Plugin
       shell: java -jar /var/lib/jenkins/jenkins-cli.jar -s http://localhost:8080/ install-plugin greenballs
+      notify: restart jenkins
 
-    - name: Configure security
-      xml:
-        file: /var/lib/jenkins/.jenkins/config.xml
-        xpath: /hudson/securityRealm
-        attribute: class
-        value: "hudson.security.HudsonPrivateSecurityRealm"
+#    - name: Configure security
+#      xml:
+#        file: /var/lib/jenkins/.jenkins/config.xml
+#        xpath: /hudson/securityRealm
+#        attribute: class
+#        value: "hudson.security.HudsonPrivateSecurityRealm"
 
     # - name: Create Jenkins admin user
     #   shell: echo 'jenkins.model.Jenkins.instance.securityRealm.createAccount({{ jenkins_username }}, {{ jenkins_password }})' | java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix | default('') }}/ groovy =
 
     # Jenkins Jobs
-    - name: Install PIP
-      apt: pkg=python-pip state=installed
-    - name: Install Jenkins Job Builder
-      pip: name=jenkins-job-builder
+    # - name: Install PIP
+    #   apt: pkg=python-pip state=installed
+    # - name: Install Jenkins Job Builder
+    #   pip: name=jenkins-job-builder
 
     # - name: Create Jenkins Pipeline job
     #   shell: jenkins-jobs test pipeline.yaml
