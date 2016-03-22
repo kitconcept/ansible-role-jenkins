@@ -33,25 +33,6 @@
 
   tasks:
 
-    # Set Hostname
-    # - hostname: name=jenkins.mycompany.com
-
-    # Nginx
-    - name: Install Nginx
-      apt: name=nginx state=installed
-      notify: Restart nginx
-
-    - name: Remove Nginx default configuration
-      file: path=/etc/nginx/sites-enabled/default state=absent
-      notify: Restart nginx
-
-    - name: Add Jenkins Nginx configuration to sites-available
-      template: src=etc/nginx.txt dest=/etc/nginx/sites-available/jenkins owner=root group=root mode=0755
-
-    - name: Add Jenkins Nginx configuration to sites-enabled
-      file: path=/etc/nginx/sites-enabled/jenkins state=link src=/etc/nginx/sites-available/jenkins
-      notify: Restart nginx
-
     # Install Jenkins
     - name: Install Jenkins prerequisits
       apt: pkg=python-pycurl state=installed
@@ -190,12 +171,6 @@
 
 
   handlers:
-
-    - name: Restart ssh
-      action: service name=ssh state=restarted
-
-    - name: Restart nginx
-      action: service name=nginx state=reloaded
 
     - name: restart jenkins
       action: service name=jenkins state=restarted

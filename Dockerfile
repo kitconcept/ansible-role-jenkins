@@ -7,9 +7,6 @@ RUN mkdir -p /var/log/supervisor
 RUN mkdir -p /var/log/docker
 RUN mkdir -p /var/log/jenkins
 
-# Add the default supervisor conf
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 ADD . /ansible-jenkins
 
 WORKDIR /ansible-jenkins
@@ -17,11 +14,9 @@ WORKDIR /ansible-jenkins
 RUN ansible-galaxy install cmprescott.xml -p roles
 RUN ansible-playbook server.yml -i hosts
 
-EXPOSE 80 8080
+EXPOSE 8080
 
 # USER jenkins
 # WORKDIR /usr/local/lib/jenkins
 
-CMD ["/usr/bin/supervisord"]
-
-# CMD ["nginx", "-g", "daemon off;", "&&", "/etc/init.d/jenkins", "start"]
+CMD ["/usr/bin/java", "-jar", "/usr/share/jenkins/jenkins.war", "--httpPort=8080"]
