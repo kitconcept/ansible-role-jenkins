@@ -13,7 +13,7 @@ setup_osx:
 build:
 	@echo "Build"
 	docker build -t jenkinsmaster .
-	docker run -d -p 80:80 jenkinsmaster
+	docker run -d -p 8080:8080 jenkinsmaster
 
 clean:
 	@echo "Clean"

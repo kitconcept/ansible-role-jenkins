@@ -14,9 +14,11 @@ WORKDIR /ansible-jenkins
 RUN ansible-galaxy install cmprescott.xml -p roles
 RUN ansible-playbook server.yml -i hosts
 
-EXPOSE 8080
+# EXPOSE 8080
 
 # USER jenkins
 # WORKDIR /usr/local/lib/jenkins
 
-CMD ["/usr/bin/java", "-jar", "/usr/share/jenkins/jenkins.war", "--httpPort=8080"]
+ENTRYPOINT ["java", "-jar", "/usr/share/jenkins/jenkins.war", "--httpPort=8080"]
+EXPOSE 8080
+CMD [""]
