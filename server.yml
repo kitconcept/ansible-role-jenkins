@@ -7,49 +7,31 @@
     jenkins_jar_location: /var/lib/jenkins/jenkins-cli.jar
     jenkins_plugins:
       - greenballs
-      - git
-      - robot
-      - simple-theme-plugin
-      - workflow-aggregator
-      - workflow-api
-      - workflow-basic-steps
-      - workflow-cps
-      - workflow-cps-global-lib
-      - workflow-durable-task-step
-      - workflow-job
-      - workflow-scm-step
-      - workflow-step-api
-      - workflow-support
+#      - git
+#      - robot
+#      - simple-theme-plugin
+#      - workflow-aggregator
+#      - workflow-api
+#      - workflow-basic-steps
+#      - workflow-cps
+#      - workflow-cps-global-lib
+#      - workflow-durable-task-step
+#      - workflow-job
+#      - workflow-scm-step
+#      - workflow-step-api
+#      - workflow-support
     jenkins_url_prefix: ""
 
     jenkins_admin_email_address: info@kitconcept.com
     jenkins_url: jenkins.kitconcept.com
     jenkins_user: jenkins
     jenkins_number_of_executors: 1
-
+    jenkins_username: jenkins
+    jenkins_password: jenkins
   roles:
     - cmprescott.xml
 
   tasks:
-
-    # Set Hostname
-    # - hostname: name=jenkins.mycompany.com
-
-    # Nginx
-    - name: Install Nginx
-      apt: name=nginx state=installed
-      notify: Restart nginx
-
-    - name: Remove Nginx default configuration
-      file: path=/etc/nginx/sites-enabled/default state=absent
-      notify: Restart nginx
-
-    - name: Add Jenkins Nginx configuration to sites-available
-      template: src=etc/nginx.txt dest=/etc/nginx/sites-available/jenkins owner=root group=root mode=0755
-
-    - name: Add Jenkins Nginx configuration to sites-enabled
-      file: path=/etc/nginx/sites-enabled/jenkins state=link src=/etc/nginx/sites-available/jenkins
-      notify: Restart nginx
 
     # Install Jenkins
     - name: Install Jenkins prerequisits
@@ -103,12 +85,14 @@
         file: /var/lib/jenkins/.jenkins/jenkins.model.JenkinsLocationConfiguration.xml
         xpath: /jenkins.model.JenkinsLocationConfiguration/adminAddress
         value: "{{jenkins_admin_email_address}}"
+      notify: restart jenkins
 
     - name: Configure Jenkins URL
       xml:
         file: /var/lib/jenkins/.jenkins/jenkins.model.JenkinsLocationConfiguration.xml
         xpath: /jenkins.model.JenkinsLocationConfiguration/jenkinsUrl
         value: "{{jenkins_url}}"
+      notify: restart jenkins
 
     - name: Create Jenkins config.xml
       template:
@@ -122,6 +106,14 @@
         file: /var/lib/jenkins/.jenkins/config.xml
         xpath: /hudson/numExecutors
         value: "{{ jenkins_number_of_executors }}"
+      notify: restart jenkins
+
+    - name: Create Mailer Configuration File
+      template:
+        src=etc/hudson.tasks.Mailer.xml
+        dest=/var/lib/jenkins/.jenkins/hudson.tasks.Mailer.xml
+        owner={{jenkins_user}}
+        group={{jenkins_user}}
 
 #    - name: Configure jenkins theme
 #      sudo: yes
@@ -168,6 +160,16 @@
       with_items: jenkins_plugins
       notify: restart jenkins
 
+    - name: Configure security
+      xml:
+        file: /var/lib/jenkins/.jenkins/config.xml
+        xpath: /hudson/securityRealm
+        attribute: class
+        value: "hudson.security.HudsonPrivateSecurityRealm"
+
+    # - name: Create Jenkins admin user
+    #   shell: echo 'jenkins.model.Jenkins.instance.securityRealm.createAccount({{ jenkins_username }}, {{ jenkins_password }})' | java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix | default('') }}/ groovy =
+
     # Jenkins Jobs
     - name: Install PIP
       apt: pkg=python-pip state=installed
@@ -179,12 +181,6 @@
 
 
   handlers:
-
-    - name: Restart ssh
-      action: service name=ssh state=restarted
-
-    - name: Restart nginx
-      action: service name=nginx state=reloaded
 
     - name: restart jenkins
       action: service name=jenkins state=restarted

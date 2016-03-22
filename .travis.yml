@@ -11,7 +11,7 @@ before_script:
 
 before_install:
   - docker build -t jenkins .
-  - docker run -d -p 80:80 jenkins
+  - docker run -d -p 8080:8080 jenkins
   - docker ps -a
 
 script:

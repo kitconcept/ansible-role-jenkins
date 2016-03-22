@@ -13,7 +13,7 @@ setup_osx:
 build:
 	@echo "Build"
 	docker build -t jenkinsmaster .
-	docker run -d -p 80:80 jenkinsmaster
+	docker run -d -p 8080:8080 jenkinsmaster
 
 clean:
 	@echo "Clean"
@@ -23,6 +23,9 @@ clean:
 ssh:
 	@echo "SSH into docker image"
 	docker exec -it $$(docker ps -aq) bash
+
+open_osx:
+	open "http://$(docker-machine ip jenkinsmaster):80/"
 
 test:
 	@echo "Run Tests"

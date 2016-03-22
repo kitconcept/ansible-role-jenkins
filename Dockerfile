@@ -1,14 +1,7 @@
 FROM ubuntu:14.04
 
 RUN useradd --system -U -u 500 jenkins
-RUN apt-get -y update && apt-get install -y curl git ansible python-apt jenkins-job-builder python-yaml supervisor python-lxml
-
-RUN mkdir -p /var/log/supervisor
-RUN mkdir -p /var/log/docker
-RUN mkdir -p /var/log/jenkins
-
-# Add the default supervisor conf
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+RUN apt-get -y update && apt-get install -y curl git ansible python-apt jenkins-job-builder python-yaml python-lxml
 
 ADD . /ansible-jenkins
 
@@ -17,11 +10,12 @@ WORKDIR /ansible-jenkins
 RUN ansible-galaxy install cmprescott.xml -p roles
 RUN ansible-playbook server.yml -i hosts
 
-EXPOSE 80 8080
+# EXPOSE 8080
 
-# USER jenkins
-# WORKDIR /usr/local/lib/jenkins
+ENV JENKINS_HOME /var/lib/jenkins/.jenkins
 
-CMD ["/usr/bin/supervisord"]
+ENTRYPOINT ["java", "-jar", "/usr/share/jenkins/jenkins.war", "--httpPort=8080"]
 
-# CMD ["nginx", "-g", "daemon off;", "&&", "/etc/init.d/jenkins", "start"]
+EXPOSE 8080
+
+CMD [""]
