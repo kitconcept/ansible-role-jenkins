@@ -36,12 +36,13 @@ Jenkins Plugins installed
 Test Jenkins URL
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.url']
-  Page should contain element  xpath=//input[@name='_.url' and @value='jenkins.kitconcept.com']
+  Page should contain element  xpath=//input[@name='_.url']
+  Textfield value should be  xpath=//input[@name='_.url']  jenkins.kitconcept.com
 
 Test Jenkins Admin E-mail Address
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.adminAddress']
-  Page should contain element  xpath=//input[@name='_.adminAddress' and @value='info@kitconcept.com']
+  Textfield value should be  xpath=//input[@name='_.adminAddress']  info@kitconcept.com
 
 Test Jenkins Mail Setup
   Go To  ${SERVER}/configure
@@ -52,4 +53,4 @@ Test Jenkins Mail Setup
 Test Jenkins Number of executors to 1
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.numExecutors']
-  Page should contain element  xpath=//input[@name='_.numExecutors' and @value='1']
+  Textfield value should be  xpath=//input[@name='_.numExecutors']  1
