@@ -2,8 +2,7 @@
 <hudson.tasks.Mailer_-DescriptorImpl plugin="mailer@1.11">
   <defaultSuffix>@kitconcept.com</defaultSuffix>
   <smtpAuthUsername>stollenwerk@kitconcept.com</smtpAuthUsername>
-  <smtpAuthPassword>RLqfRBHOPF86lh7DldM69Kcck/Oj+9EN62yOjqCtjiU=</smtpAuthPasswo
-rd>
+  <smtpAuthPassword>RLqfRBHOPF86lh7DldM69Kcck/Oj+9EN62yOjqCtjiU=</smtpAuthPassword>
   <replyToAddress>no-reply@kitconcept.com</replyToAddress>
   <smtpHost>smtp.kitconcept.com</smtpHost>
   <useSsl>true</useSsl>
