@@ -24,6 +24,9 @@ ssh:
 	@echo "SSH into docker image"
 	docker exec -it $$(docker ps -aq) bash
 
+open_osx:
+	open "http://$(docker-machine ip jenkinsmaster):80/"
+
 test:
 	@echo "Run Tests"
 	pybot test.robot
