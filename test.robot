@@ -63,7 +63,7 @@ Test Jenkins Mail Default Suffix Setting
 Test Jenkins SMTP Auth Setting
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.smtpServer']
-  Checkbox Should Be Selected  xpath=//input[@name='_.useSMTPAuth']
+  Checkbox Should Be Selected  xpath=//input[@name='useSMTPAuth']
 
 Test Jenkins SMTP Auth Username Setting
   Go To  ${SERVER}/configure
