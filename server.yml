@@ -65,31 +65,23 @@
       delay: 60
       changed_when: false
 
-    - name: Create .jenkins directory
-      file:
-        path=/var/lib/jenkins/.jenkins
-        state=directory
-        mode=0755
-        owner=jenkins
-        group=jenkins
-
     - name: Create jenkins.model.JenkinsLocationConfiguration.xml
       template:
         src=etc/jenkins.model.JenkinsLocationConfiguration.xml
-        dest=/var/lib/jenkins/.jenkins/jenkins.model.JenkinsLocationConfiguration.xml
+        dest=/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml
         owner={{jenkins_user}}
         group={{jenkins_user}}
 
     - name: Configure admin email address
       xml:
-        file: /var/lib/jenkins/.jenkins/jenkins.model.JenkinsLocationConfiguration.xml
+        file: /var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml
         xpath: /jenkins.model.JenkinsLocationConfiguration/adminAddress
         value: "{{jenkins_admin_email_address}}"
       notify: restart jenkins
 
     - name: Configure Jenkins URL
       xml:
-        file: /var/lib/jenkins/.jenkins/jenkins.model.JenkinsLocationConfiguration.xml
+        file: /var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml
         xpath: /jenkins.model.JenkinsLocationConfiguration/jenkinsUrl
         value: "{{jenkins_url}}"
       notify: restart jenkins
@@ -97,13 +89,13 @@
     - name: Create Jenkins config.xml
       template:
         src=etc/config.xml
-        dest=/var/lib/jenkins/.jenkins/config.xml
+        dest=/var/lib/jenkins/config.xml
         owner={{jenkins_user}}
         group={{jenkins_user}}
 
     - name: Configure number of executors
       xml:
-        file: /var/lib/jenkins/.jenkins/config.xml
+        file: /var/lib/jenkins/config.xml
         xpath: /hudson/numExecutors
         value: "{{ jenkins_number_of_executors }}"
       notify: restart jenkins
@@ -111,7 +103,7 @@
     - name: Create Mailer Configuration File
       template:
         src=etc/hudson.tasks.Mailer.xml
-        dest=/var/lib/jenkins/.jenkins/hudson.tasks.Mailer.xml
+        dest=/var/lib/jenkins/hudson.tasks.Mailer.xml
         owner={{jenkins_user}}
         group={{jenkins_user}}
 

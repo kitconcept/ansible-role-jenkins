@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 
-RUN useradd --system -U -u 500 jenkins
+# RUN useradd --system -U -u 500 jenkins
 RUN apt-get -y update && apt-get install -y curl git ansible python-apt jenkins-job-builder python-yaml python-lxml
 
 ADD . /ansible-jenkins
@@ -12,7 +12,7 @@ RUN ansible-playbook server.yml -i hosts -vv
 
 # EXPOSE 8080
 
-ENV JENKINS_HOME /var/lib/jenkins/.jenkins
+ENV JENKINS_HOME /var/lib/jenkins
 
 ENTRYPOINT ["java", "-jar", "/usr/share/jenkins/jenkins.war", "--httpPort=8080"]
 
