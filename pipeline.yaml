@@ -1,16 +1,6 @@
-
-- project:
-    name: workflow
-    jobs:
-        - 'plone.rest'
-
 - job:
-    name: 'plone.rest'
+    name: job-name
+    display-name: 'Fancy job name'
     project-type: workflow
-    definitions:
-        - script:
-            filename: 'plone.rest.pipeline.groovy'
-        - scm:
-            url: https://github.com/kitconcept/ansible-role-jenkins-plone.git
-            branches:
-                - '*/master'
+    dsl: |
+      build job: "job1"

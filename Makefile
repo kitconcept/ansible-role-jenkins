@@ -12,7 +12,6 @@ setup_osx:
 
 build:
 	@echo "Build"
-	docker stop $$(docker ps -aq)
 	docker build -t jenkinsmaster .
 	docker run -d -p 8080:8080 jenkinsmaster
 

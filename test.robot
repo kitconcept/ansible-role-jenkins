@@ -125,3 +125,12 @@ Test Jenkins Number of executors to 1
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.numExecutors']
   Page should contain element  xpath=//input[@name='_.numExecutors' and @value='1']
+
+Test Jenkins Job Builder
+  Go to  ${SERVER}
+  Wait until page contains  Jenkins
+  Page should contain  Fancy job name
+#  Click link  Fancy job name
+#  Wait until page contains  xpath=//input[@name='name']
+#  Page should contain  Pipeline name
+#  Page should contain  Pipeline DSL Reference
