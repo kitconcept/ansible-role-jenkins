@@ -11,6 +11,7 @@
       - robot
       - simple-theme-plugin
       - xvfb
+      - violations
       - workflow-aggregator
       - workflow-api
       - workflow-basic-steps

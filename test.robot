@@ -58,6 +58,11 @@ Test Jenkins Pipeline Plugin is installed
   Wait until page contains element  css=#plugins
   Page should contain  Pipeline
 
+Test Jenkins Violations Plugin is installed
+  Go to  ${SERVER}/pluginManager/installed
+  Wait until page contains element  css=#plugins
+  Page should contain  Violations
+
 Test Jenkins URL Setting
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.url']
