@@ -10,6 +10,7 @@
       - git
       - robot
       - simple-theme-plugin
+      - jquery  # simple-theme-plugin dep
       - xvfb
       - violations
       - workflow-aggregator
