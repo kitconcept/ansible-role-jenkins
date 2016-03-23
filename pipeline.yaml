@@ -1,7 +1,5 @@
 - job:
     name: job-name
     project-type: workflow
-    defaults: global
-    description: 'Do not edit this job through the web!'
-    disabled: false
-    display-name: 'Fancy job name'
+    dsl: |
+      build job: "job1"
