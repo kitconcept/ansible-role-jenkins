@@ -130,7 +130,7 @@ Test Jenkins Job Builder
   Go to  ${SERVER}
   Wait until page contains  Jenkins
   Page should contain  Fancy job name
-  Click link  Fancy job name
-  Wait until page contains  xpath=//input[@name='name']
-  Page should contain  Pipeline name
-  Page should contain  Pipeline DSL Reference
+#  Click link  Fancy job name
+#  Wait until page contains  xpath=//input[@name='name']
+#  Page should contain  Pipeline name
+#  Page should contain  Pipeline DSL Reference
