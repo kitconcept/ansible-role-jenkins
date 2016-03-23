@@ -1,5 +1,6 @@
 - job:
     name: job-name
+    display-name: 'Fancy job name'
     project-type: workflow
     dsl: |
       build job: "job1"
