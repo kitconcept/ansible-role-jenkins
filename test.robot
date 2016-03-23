@@ -61,6 +61,16 @@ Test Jenkins Pipeline Plugin is installed
   Page should contain  Pipeline
   Page should contain element  xpath=//a[@href='https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Plugin']
 
+Test Create Pipeline Job
+  Go to  ${SERVER}/newJob
+  Wait until page contains  Item name
+  Page should contain  Pipeline
+  Input Text  name  pipeline-job
+  Select radio button  mode  org.jenkinsci.plugins.workflow.job.WorkflowJob
+  Click button  OK
+  Wait until page contains  Pipeline name
+  Page should contain  Delete Pipeline
+
 Test Jenkins Violations Plugin is installed
   Go to  ${SERVER}/pluginManager/installed
   Wait until page contains element  css=#plugins
