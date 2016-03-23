@@ -10,6 +10,7 @@
       - git
       - robot
       - simple-theme-plugin
+      - xvfb
 #      - workflow-aggregator
 #      - workflow-api
 #      - workflow-basic-steps
@@ -170,12 +171,9 @@
       delay: 60
       changed_when: false
 
-    # manual approach
-    - name: Install Green Balls Plugin
-      shell: java -jar /var/lib/jenkins/jenkins-cli.jar -s http://localhost:8080/ install-plugin greenballs
-
-    - name: Install Xvfb Plugin
-      shell: java -jar /var/lib/jenkins/jenkins-cli.jar -s http://localhost:8080/ install-plugin xvfb
+    - name: Install Jenkins Plugins
+      shell: java -jar /var/lib/jenkins/jenkins-cli.jar -s http://localhost:8080/ install-plugin {{item}}
+      with_items: jenkins_plugins
 
     - name: Restart Jenkins
       shell: java -jar /var/lib/jenkins/jenkins-cli.jar -s http://localhost:8080 safe-restart
