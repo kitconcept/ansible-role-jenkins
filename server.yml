@@ -170,6 +170,14 @@
     #   notify:
     #     - 'restart jenkins'
 
+    - name: Wait for Jenkins to start up before proceeding
+      shell: "curl -D - --silent http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}/cli/"
+      register: result
+      until: (result.stdout.find("403 Forbidden") != -1) or (result.stdout.find("200 OK") != -1) and (result.stdout.find("Please wait while") == -1)
+      retries: 5
+      delay: 60
+      changed_when: false
+
     # manual approach
     - name: Install Green Balls Plugin
       shell: java -jar /var/lib/jenkins/jenkins-cli.jar -s http://localhost:8080/ install-plugin greenballs
