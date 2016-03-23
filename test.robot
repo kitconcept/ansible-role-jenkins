@@ -29,7 +29,7 @@ Test Jenkins Is Up and Running
 Test Jenkins Home Setting
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.url']
-  Page should contain  /var/lib/jenkins/.jenkins
+  Page should contain  /var/lib/jenkins
 
 Test Jenkins Plugins are installed
   Go to  ${SERVER}/pluginManager/installed
