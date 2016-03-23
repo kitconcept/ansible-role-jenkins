@@ -190,10 +190,10 @@
     #   shell: echo 'jenkins.model.Jenkins.instance.securityRealm.createAccount({{ jenkins_username }}, {{ jenkins_password }})' | java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix | default('') }}/ groovy =
 
     # Jenkins Jobs
-     - name: Install PIP
-       apt: pkg=python-pip state=installed
-     - name: Install Jenkins Job Builder
-       pip: name=jenkins-job-builder
+    - name: Install PIP
+      apt: pkg=python-pip state=installed
+    - name: Install Jenkins Job Builder
+      pip: name=jenkins-job-builder
 
     # - name: Create Jenkins Pipeline job
     #   shell: jenkins-jobs test pipeline.yaml
