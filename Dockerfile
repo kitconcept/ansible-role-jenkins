@@ -8,7 +8,7 @@ ADD . /ansible-jenkins
 WORKDIR /ansible-jenkins
 
 RUN ansible-galaxy install cmprescott.xml -p roles
-RUN ansible-playbook server.yml -i hosts
+RUN ansible-playbook server.yml -i hosts -vv
 
 # EXPOSE 8080
 
