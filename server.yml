@@ -7,9 +7,9 @@
     jenkins_jar_location: /var/lib/jenkins/jenkins-cli.jar
     jenkins_plugins:
       - greenballs
-#      - git
-#      - robot
-#      - simple-theme-plugin
+      - git
+      - robot
+      - simple-theme-plugin
 #      - workflow-aggregator
 #      - workflow-api
 #      - workflow-basic-steps
