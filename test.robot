@@ -46,17 +46,20 @@ Test Jenkins Green Balls Plugin is installed
 Test Jenkins Robot Framework Plugin is installed
   Go to  ${SERVER}/pluginManager/installed
   Wait until page contains element  css=#plugins
-  Page should contain  Robot Framework
+  Page should contain  Robot Framework plugin
+  Page should contain element  xpath=//a[@href='http://wiki.jenkins-ci.org/display/JENKINS/Robot+Framework+Plugin']
 
 Test Jenkins Git Plugin is installed
   Go to  ${SERVER}/pluginManager/installed
   Wait until page contains element  css=#plugins
-  Page should contain  Git
+  Page should contain  Git plugin
+  Page should contain element  xpath=//a[@href='http://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin']
 
 Test Jenkins Pipeline Plugin is installed
   Go to  ${SERVER}/pluginManager/installed
   Wait until page contains element  css=#plugins
   Page should contain  Pipeline
+  Page should contain element  xpath=//a[@href='https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Plugin']
 
 Test Jenkins Violations Plugin is installed
   Go to  ${SERVER}/pluginManager/installed
