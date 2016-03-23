@@ -195,9 +195,11 @@
     - name: Install Jenkins Job Builder
       pip: name=jenkins-job-builder
 
-    # - name: Create Jenkins Pipeline job
-    #   shell: jenkins-jobs test pipeline.yaml
+    - name: Test Jenkins Job Builder Pipeline
+      shell: jenkins-jobs test pipeline.yaml
 
+    - name: Run Jenkins Job Builder Pipeline
+      shell: jenkins-jobs --conf etc/jenkins.ini.in update pipeline.yaml
 
   handlers:
 
