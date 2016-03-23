@@ -110,13 +110,13 @@
         owner={{jenkins_user}}
         group={{jenkins_user}}
 
-#    - name: Configure jenkins theme
-#      sudo: yes
-#      template:
-#        src=jenkins_simple_theme.xml.j2
-#        dest=/var/lib/jenkins/org.codefirst.SimpleThemeDecorator.xml
-#      notify:
-#        - 'Restart Jenkins'
+    # Theme
+    - name: Create org.codefirst.SimpleThemeDecorator.xml
+      template:
+        src=etc/org.codefirst.SimpleThemeDecorator.xml
+        dest=/var/lib/jenkins/org.codefirst.SimpleThemeDecorator.xml
+        owner={{jenkins_user}}
+        group={{jenkins_user}}
 
     # Jenkins CLI
     - name: Get the jenkins-cli jarfile from the Jenkins server
