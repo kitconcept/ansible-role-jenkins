@@ -31,16 +31,37 @@ Test Jenkins Home Setting
   Wait until page contains element  xpath=//input[@name='_.url']
   Page should contain  /var/lib/jenkins
 
-Test Jenkins Plugins are installed
+Test Jenkins Xvfb Plugin is installed
   Go to  ${SERVER}/pluginManager/installed
   Wait until page contains element  css=#plugins
-  # Page should contain  Green Balls
-  # Page should contain element  xpath=//a[@href='http://wiki.jenkins-ci.org/display/JENKINS/Green+Balls']
   Page should contain  Xvfb plugin
   Page should contain element  xpath=//a[@href='http://wiki.jenkins-ci.org/display/JENKINS/Xvfb+Plugin']
-#  Page should contain  Robot Framework plugin
-#  Page should contain  Workflow Plugin
-#  Page should contain  Simple Theme Plugin
+
+Test Jenkins Green Balls Plugin is installed
+  Go to  ${SERVER}/pluginManager/installed
+  Wait until page contains element  css=#plugins
+  Page should contain  Green Balls
+  Page should contain element  xpath=//a[@href='http://wiki.jenkins-ci.org/display/JENKINS/Green+Balls']
+
+Test Jenkins Robot Framework Plugin is installed
+  Go to  ${SERVER}/pluginManager/installed
+  Wait until page contains element  css=#plugins
+  Page should contain  Robot Framework
+
+Test Jenkins Git Plugin is installed
+  Go to  ${SERVER}/pluginManager/installed
+  Wait until page contains element  css=#plugins
+  Page should contain  Git
+
+Test Jenkins Pipeline Plugin is installed
+  Go to  ${SERVER}/pluginManager/installed
+  Wait until page contains element  css=#plugins
+  Page should contain  Pipeline
+
+Test Jenkins Violations Plugin is installed
+  Go to  ${SERVER}/pluginManager/installed
+  Wait until page contains element  css=#plugins
+  Page should contain  Violations
 
 Test Jenkins URL Setting
   Go To  ${SERVER}/configure
