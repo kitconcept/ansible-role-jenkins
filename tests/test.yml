@@ -23,6 +23,11 @@
       - workflow-scm-step
       - workflow-step-api
       - workflow-support
+      - pipeline-stage-view
+      - jquery-detached # pipeline-stage-view dep
+      - momentjs # pipeline-stage-view dep
+      - handlebars # pipeline-stage-view dep
+      - pipeline-rest-api # pipeline-stage-view dep
     jenkins_url_prefix: ""
     jenkins_admin_email_address: info@kitconcept.com
     jenkins_url: jenkins.kitconcept.com
