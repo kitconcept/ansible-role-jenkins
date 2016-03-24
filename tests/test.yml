@@ -1,5 +1,34 @@
 ---
-- hosts: localhost
-  remote_user: root
+- hosts: 127.0.0.1
+  sudo: yes
+  vars:
+    jenkins_hostname: localhost
+    jenkins_http_port: 8080
+    jenkins_jar_location: /var/lib/jenkins/jenkins-cli.jar
+    jenkins_plugins:
+      - greenballs
+      - git
+      - robot
+      - simple-theme-plugin
+      - jquery  # simple-theme-plugin dep
+      - xvfb
+      - violations
+      - workflow-aggregator
+      - workflow-api
+      - workflow-basic-steps
+      - workflow-cps
+      - workflow-cps-global-lib
+      - workflow-durable-task-step
+      - workflow-job
+      - workflow-scm-step
+      - workflow-step-api
+      - workflow-support
+    jenkins_url_prefix: ""
+    jenkins_admin_email_address: info@kitconcept.com
+    jenkins_url: jenkins.kitconcept.com
+    jenkins_user: jenkins
+    jenkins_number_of_executors: 1
+    jenkins_username: jenkins
+    jenkins_password: jenkins
   roles:
-    - ansible-jenkins-python
+    - ansible-role-jenkins-server
