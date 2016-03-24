@@ -1,0 +1,19 @@
+---
+dependencies: ['cmprescott.xml']
+
+galaxy_info:
+  author: Timo Stollenwerk
+  description: Jenkins CI
+  company: "kitconcept GmbH"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 1.9
+  platforms:
+    - name: Ubuntu
+      versions:
+      - precise
+      - raring
+      - saucy
+      - trusty
+  galaxy_tags:
+    - web
+    - jenkins

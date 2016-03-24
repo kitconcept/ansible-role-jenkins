@@ -6,8 +6,10 @@ ADD . /ansible-jenkins
 
 WORKDIR /ansible-jenkins
 
-RUN ansible-galaxy install cmprescott.xml -p roles
-RUN ansible-playbook server.yml -i hosts -vv
+RUN ansible-galaxy install cmprescott.xml
+RUN mkdir -p /etc/ansible/roles/ansible-role-jenkins-server/
+RUN cp -R . /etc/ansible/roles/ansible-role-jenkins-server/
+RUN ansible-playbook tests/test.yml -i hosts -vv
 
 ENV JENKINS_HOME /var/lib/jenkins
 
