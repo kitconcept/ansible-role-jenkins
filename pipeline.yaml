@@ -3,4 +3,61 @@
     display-name: 'Fancy job name'
     project-type: workflow
     dsl: |
-      build job: "job1"
+
+      stage 'Build'
+      node {
+        sh "rm -rf *"
+        git branch: 'master', changelog: true, poll: true, url: 'https://github.com/collective/collective.mailchimp.git'
+        sh "python2.7 bootstrap.py"
+        sh "bin/buildout"
+        sh "tar -c -f buildout.tar bin parts src *.cfg"
+        archive 'buildout.tar'
+      }
+
+      stage 'Test'
+      parallel(
+        test1: {
+          node {
+            prepareBuildout()
+            try {
+              sh "bin/test --xml"
+              step([$class: 'JUnitResultArchiver', testResults: 'parts/test/testreports/*.xml'])
+            } catch (e) {
+              mail subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed in the alltests stage with ${e.message}", to: 'tisto@plone.org', body: "Please go to ${env.BUILD_URL}."
+              throw e
+            }
+          }
+        },
+        test2: {
+          node {
+            prepareBuildout()
+            try {
+              sh "bin/test --xml"
+              step([$class: 'JUnitResultArchiver', testResults: 'parts/test/testreports/*.xml'])
+            } catch (e) {
+              mail subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed in the alltests stage with ${e.message}", to: 'tisto@plone.org', body: "Please go to ${env.BUILD_URL}."
+              throw e
+            }
+          }
+        },
+      )
+
+      stage 'Notification'
+      node {
+        step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'tisto@plone.org', sendToIndividuals: true])
+        mail (
+          to: 'tisto@plone.org',
+          subject: "Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) is ready.",
+          body: "Please go to ${env.BUILD_URL}."
+        );
+      }
+
+      /**
+      * Prepare buildout by cleaning up the workspace, and fetching buildout.
+      */
+      def prepareBuildout() {
+        sh "rm -rf *"
+        unarchive mapping: ['buildout.tar': '.']
+        sh "tar -x -f buildout.tar"
+        sh "bin/buildout -c jenkins.cfg"
+      }
