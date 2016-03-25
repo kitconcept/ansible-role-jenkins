@@ -3,15 +3,27 @@
     display-name: 'Fancy job name'
     project-type: workflow
     dsl: |
-
       stage 'Build'
       node {
         sh "rm -rf *"
         git branch: 'master', changelog: true, poll: true, url: 'https://github.com/collective/collective.mailchimp.git'
-        sh "python2.7 bootstrap.py"
+        sh "virtualenv ."
+        sh "bin/pip install setuptools zc.buildout"
         sh "bin/buildout"
-        sh "tar -c -f buildout.tar bin parts src *.cfg"
+        sh "tar -c -f buildout.tar bin parts src *.cfg setup.py *"
         archive 'buildout.tar'
+      }
+
+      stage 'Code Analysis'
+      node {
+        prepareBuildout()
+        try {
+          sh "bin/code-analysis"
+          // step([$class: 'JUnitResultArchiver', testResults: 'parts/test/testreports/*.xml'])
+        } catch (e) {
+          mail subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed in the code analysis stage with ${e.message}", to: 'tisto@plone.org', body: "Please go to ${env.BUILD_URL}."
+          throw e
+        }
       }
 
       stage 'Test'
@@ -59,5 +71,8 @@
         sh "rm -rf *"
         unarchive mapping: ['buildout.tar': '.']
         sh "tar -x -f buildout.tar"
+        sh "virtualenv ."
+        sh "bin/pip install setuptools zc.buildout"
         sh "bin/buildout"
       }
+

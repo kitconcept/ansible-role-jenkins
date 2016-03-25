@@ -99,6 +99,6 @@
         - xfonts-scalable
         - xfonts-cyrillic
         - imagemagick
-        - ufw
-        - fail2ban
-        - unattended-upgrades
+
+    - name: Install virtualenv
+      pip: name=virtualenv
