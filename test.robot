@@ -84,12 +84,12 @@ Test Jenkins Admin E-mail Address Setting
 Test Jenkins Mail SMTP Server Settings
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.smtpServer']
-  Textfield value should be  xpath=//input[@name='_.smtpServer']  localhost
+  Textfield value should be  xpath=//input[@name='_.smtpServer']  smtp.kitconcept.com
 
 Test Jenkins Mail Default Suffix Setting
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.smtpServer']
-  Textfield value should be  xpath=//input[@name='_.defaultSuffix']  @localhost
+  Textfield value should be  xpath=//input[@name='_.defaultSuffix']  @kitconcept.com
 
 Test Jenkins SMTP Auth Setting
   Go To  ${SERVER}/configure
@@ -104,17 +104,17 @@ Test Jenkins SMTP Auth Username Setting
 Test Jenkins SMTP Port Setting
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.smtpServer']
-  Textfield value should be  xpath=//input[@name='_.smtpPort']  25
+  Textfield value should be  xpath=//input[@name='_.smtpPort']  555
 
 Test Jenkins SMTP Reply-To Setting
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.smtpServer']
-  Textfield value should be  xpath=//input[@name='_.replyToAddress']  no-reply@localhost
+  Textfield value should be  xpath=//input[@name='_.replyToAddress']  no-reply@kitconcept.com
 
 Test Jenkins SMTP SSL Enabled Setting
   Go To  ${SERVER}/configure
   Wait until page contains element  xpath=//input[@name='_.smtpServer']
-  Checkbox Should Not Be Selected  xpath=//input[@name='_.useSsl']
+  Checkbox Should Be Selected  xpath=//input[@name='_.useSsl']
 
 Test Jenkins Number of executors to 1
   Go To  ${SERVER}/configure
