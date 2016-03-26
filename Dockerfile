@@ -2,6 +2,12 @@ FROM ubuntu:14.04
 
 RUN apt-get -y update && apt-get install -y curl git ansible python-apt jenkins-job-builder python-yaml python-lxml
 
+# Install Postfix
+RUN echo "postfix postfix/mailname string localhost" | debconf-set-selections
+RUN echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections
+RUN apt-get install -y postfix
+# RUN /etc/init.d/postfix start
+
 ADD . /ansible-jenkins
 
 WORKDIR /ansible-jenkins
