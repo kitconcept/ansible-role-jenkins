@@ -164,3 +164,5 @@
 
 - name: Run Jenkins Job Builder Pipeline
   shell: jenkins-jobs --conf ../etc/jenkins.ini.in update ../pipeline.yaml
+
+- include: mailer.yml

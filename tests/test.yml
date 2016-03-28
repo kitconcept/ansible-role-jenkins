@@ -36,6 +36,14 @@
     jenkins_number_of_executors: 1
     jenkins_username: jenkins
     jenkins_password: jenkins
+    jenkins_mailer_default_suffix: "@localhost"
+    jenkins_mailer_smtp_auth_username: ""
+    jenkins_mailer_smtp_auth_password: ""
+    jenkins_mailer_reply_to_address: "no-reply@localhost"
+    jenkins_mailer_smtp_host: localhost
+    jenkins_mailer_use_ssl: false
+    jenkins_mailer_smtp_port: 25
+    jenkins_mailer_charset: UTF-8
   roles:
     - ansible-role-jenkins-server
   tasks:
