@@ -19,7 +19,7 @@
         prepareBuildout()
         try {
           sh "bin/code-analysis"
-          // step([$class: 'JUnitResultArchiver', testResults: 'parts/test/testreports/*.xml'])
+          // step([$class: 'ViolationsPublisher', testResults: 'parts/code-analysis/flake8.log'])
         } catch (e) {
           mail subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed in the code analysis stage with ${e.message}", to: 'tisto@plone.org', body: "Please go to ${env.BUILD_URL}."
           throw e
