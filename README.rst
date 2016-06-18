@@ -1,7 +1,7 @@
-Ansible Role Jenkins Plone
-==========================
+Ansible Role Jenkins
+====================
 
-Ansible role to set up a Jenkins server for Plone development.
+Ansible role to set up a Jenkins server.
 
 Usage
 -----
