@@ -3,6 +3,44 @@ Ansible Role Jenkins Plone
 
 Ansible role to set up a Jenkins server for Plone development.
 
+Usage
+-----
+
+playbook-jenkins-master.yml::
+
+  ---
+  - hosts: 127.0.0.1
+    sudo: yes
+    vars:
+      jenkins_hostname: localhost
+      jenkins_http_port: 8080
+      jenkins_home_directory: /var/lib/jenkins
+      jenkins_jar_location: /var/lib/jenkins/jenkins-cli.jar
+      jenkins_plugins:
+        - greenballs
+      jenkins_url_prefix: ""
+      jenkins_admin_email_address: info@kitconcept.com
+      jenkins_url: jenkins.kitconcept.com
+      jenkins_user: jenkins
+      jenkins_number_of_executors: 1
+      jenkins_username: jenkins
+      jenkins_password: jenkins
+      jenkins_mailer_default_suffix: "@localhost"
+      jenkins_mailer_smtp_auth_username: ""
+      jenkins_mailer_smtp_auth_password: ""
+      jenkins_mailer_reply_to_address: "no-reply@localhost"
+      jenkins_mailer_smtp_host: localhost
+      jenkins_mailer_use_ssl: false
+      jenkins_mailer_smtp_port: 25
+      jenkins_mailer_charset: UTF-8
+      jenkins_scm: bitbucket
+    roles:
+      - ansible-role-jenkins-server
+
+
+Development
+===========
+
 Prerequisits
 ------------
 
@@ -56,24 +94,13 @@ Run Tests::
 
   $ pybot test.robot
 
-Misc
-----
+
+Docker Controls
+---------------
 
 Check if Docker image is running::
 
   $ docker ps -a
-
-List local Docker images::
-
-  $ docker-machine ls
-
-Start Docker image::
-
-  $ docker-machine start jenkins
-
-Delete Docker image::
-
-  $ docker-machine rm jenkins
 
 SSH into Docker image::
 
@@ -86,4 +113,24 @@ Start Service::
 Remove all containers::
 
   $ docker rm $(docker ps -aq)
+
+
+Docker Machine (OS X)
+---------------------
+
+List local Docker images::
+
+  $ docker-machine ls
+
+Start Docker image::
+
+  $ docker-machine start jenkinsmaster
+
+Restart Docker image::
+
+  $ docker-machine restart jenkinsmaster
+
+Delete Docker image::
+
+  $ docker-machine rm jenkinsmaster
 
