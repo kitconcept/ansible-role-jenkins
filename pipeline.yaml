@@ -6,7 +6,7 @@
       stage 'Build'
       node {
         sh "rm -rf *"
-        git branch: 'master', changelog: true, poll: true, url: 'https://github.com/collective/collective.mailchimp.git'
+        git branch: 'plone5-kitconcept', changelog: true, poll: true, url: 'https://github.com/collective/collective.solr.git'
         sh "virtualenv ."
         sh "bin/pip install setuptools zc.buildout"
         sh "bin/buildout"
