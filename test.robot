@@ -25,6 +25,7 @@ Test Jenkins Is Up and Running
   Go To  ${SERVER}
   Wait until page contains  Jenkins
   Page Should Contain  Jenkins
+  Wait until page contains  Fancy job name
 
 Test Jenkins Home Setting
   Go To  ${SERVER}/configure
